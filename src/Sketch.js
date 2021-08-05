@@ -3,33 +3,51 @@ import p5 from 'p5'
 
 class Sketch extends React.Component {
 
-    //p5 instance mode requires a reference on the DOM to mount the sketch
-    //So we use react's createRef function to give p5 a reference
     constructor(props) {
         super(props)
         this.myRef = React.createRef()
+        this.state = {
+            paddle: props.rect(p.width / 2.5, p.height - 40, 150, 20, 20)
+        }
     }
 
-    // This uses p5's instance mode for sketch creation and namespacing
     Sketch = (p) => {
+        var canvas;
+        //let paddle = p.rect(p.width / 2.5, p.height - 40, 150, 20, 20);
 
-        // Native p5 functions work as they would normally but prefixed with 
-        // a p5 object "p"
         p.setup = () => {
-            //Everyhting that normally happens in setup works
-            p.createCanvas(400,400)
+            canvas = p.createCanvas(800,800)
         }
 
         p.draw = () => {
-            // And everything that normally goes in draw in here
-            p.background(0)
-            p.circle(p.width / 2, p.height / 2, 50)
+            p.background(20)
+            //paddle = p.rect(p.width / 2.5, p.height - 40, 150, 20, 20)
+        }
+
+        //p5 event on key press
+        p.keyPressed = (e) => {
+            //console.log(e.key)
+            if(e.key === 'ArrowRight'){
+                console.log('something')
+            }
+        }
+
+        p.move = () => {
+            console.log('something')
         }
     }
 
     componentDidMount() {
-        //We create a new p5 object on component mount, feed it 
         this.myP5 = new p5(this.Sketch, this.myRef.current)
+    }
+
+    componentDidUpdate() {
+        this.myP5.remove()
+        this.myP5 = new p5(this.Sketch, this.myRef.current)
+    }
+
+    componentWillUnmount() {
+        this.myP5.remove()
     }
 
     render() {
@@ -42,4 +60,5 @@ class Sketch extends React.Component {
     }
 }
 
-export default Sketch
+export default Sketch;
+
