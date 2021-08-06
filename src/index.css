@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container{
+  width: 1000px;
+  height: 675px;
+  background: antiquewhite;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;    
+  perspective: 1000px;
+  
+}
+
+#paddle {
+  width: 200px;
+  height: 20px;
+  background: black;
+  position: absolute;
+}
