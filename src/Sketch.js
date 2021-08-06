@@ -1,39 +1,72 @@
 import React from 'react'
 import p5 from 'p5'
+import Paddle from './paddle'
+
+let pad 
 
 class Sketch extends React.Component {
-
     constructor(props) {
         super(props)
         this.myRef = React.createRef()
         this.state = {
-            paddle: props.rect(p.width / 2.5, p.height - 40, 150, 20, 20)
+            paddle: ''
         }
     }
 
     Sketch = (p) => {
-        var canvas;
-        //let paddle = p.rect(p.width / 2.5, p.height - 40, 150, 20, 20);
+        let canvas, paddle, paddle2
 
         p.setup = () => {
-            canvas = p.createCanvas(800,800)
+            canvas = p.createCanvas(800,600)
         }
+
+        const setup = (p5, canvasParentRef) => {
+            p5.createCanvas(500, 400).parent(canvasParentRef)
+          }
 
         p.draw = () => {
             p.background(20)
-            //paddle = p.rect(p.width / 2.5, p.height - 40, 150, 20, 20)
+            p.rect(p.width / 2.5, p.height - 40, 150, 20, 20)
+            
         }
 
         //p5 event on key press
         p.keyPressed = (e) => {
-            //console.log(e.key)
+            // working, but you have to keep pressing key for each move
             if(e.key === 'ArrowRight'){
-                console.log('something')
+                p.moveRight(e)
+            } else if (e.key === 'ArrowLeft') {
+                p.moveLeft(e)
             }
+
+            // not working:
+            // if(e.key === 'ArrowRight'){
+            //     this.setState(prevState => {
+            //         // return {...prevState, paddle: paddle.width + 20}
+            //         if (prevState.paddle){
+            //             debugger
+            //             return {...prevState, paddle: p.rect(p.width +=20, p.height - 40, 150, 20, 20)}
+            //         } else {
+            //             debugger
+            //             return {paddle: p.rect(p.width, p.height - 40, 150, 20, 20)}
+            //         }
+            //     })
+            // }
         }
 
-        p.move = () => {
+        p.moveRight = (e) => {
+            // how to make consistent movement while key pressed?
+            // if (p.width > 1){
+            debugger
+            p.width += 20
+            // }
+           
+        }
+
+        p.moveLeft = (e) => {
             console.log('something')
+            paddle = p.rect(p.width -= 20)
+            
         }
     }
 
@@ -54,7 +87,6 @@ class Sketch extends React.Component {
         return (
             //This div will contain our p5 sketch
             <div ref={this.myRef}>
-
             </div>
         )
     }
